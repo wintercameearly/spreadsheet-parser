@@ -8,7 +8,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-import django_heroku
+# import django_heroku
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -87,7 +87,7 @@ DATABASES = {
         'NAME': os.getenv('NAME'),
         'USER': os.getenv('USER'),
         'PASSWORD': os.getenv('PASSWORD'),
-        'HOST': 'ec2-54-161-208-31.compute-1.amazonaws.com',
+        'HOST': 'ec2-34-236-215-156.compute-1.amazonaws.com',
         'PORT': '5432'
     }
 }
@@ -136,9 +136,17 @@ MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 REST_FRAMEWORK = {'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'}
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
+BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Africa/Nairobi'
